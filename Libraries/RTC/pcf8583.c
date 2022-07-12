@@ -56,7 +56,7 @@ void RtcInit()
 				buffer[3] = 23;//decreasing from 00:00 goes to 23:59
 		}
 
-		DisplayTime(buffer[3], buffer[2]);
+		DisplayTime(buffer[3], buffer[2], 0);
 	}
 
 	/*********only if user tried to change time********/
