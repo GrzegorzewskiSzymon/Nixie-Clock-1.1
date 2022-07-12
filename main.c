@@ -15,6 +15,9 @@
 #include "Libraries/RTC/pcf8583.h"
 #include "Libraries/NixieDrivers/NixieDiodes.h"
 #include "Libraries/IR/TransmitterIR.h"
+#include "Libraries/StateMachine/StateMachine.h"
+
+uint8_t seconds, minutes, hours;
 
 int main(void)
 {
@@ -35,11 +38,9 @@ int main(void)
 
 	InitTransmitterIr();
 
-	uint8_t seconds, minutes, hours;
 	while(1)
 	{
-		RtcReadData(&seconds, &minutes, &hours);
-		DisplayTime(hours, minutes);
+		StateMachine_Clock();
 
 	}
 

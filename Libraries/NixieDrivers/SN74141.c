@@ -19,10 +19,10 @@ void BCD_Init()
 
 uint64_t millis_DisplayTime = 0;
 uint64_t millis_DisplayTime_Diodes = 0;
-void DisplayTime(int8_t hours, int8_t minutes)
+void DisplayTime(int8_t hours, int8_t minutes, uint16_t reduceBlinkPeriodTime)
 {
 
-	if(millis-millis_DisplayTime_Diodes > DIODES_BLINK_TIME)
+	if(millis-millis_DisplayTime_Diodes > DIODES_BLINK_TIME - reduceBlinkPeriodTime)
 	{
 		if( (PINB&(1<<PB6))==(PIND&&(1<<PD4)) ) //if diodes are out of sync
 			NIXIEDIODE_0_TOG;

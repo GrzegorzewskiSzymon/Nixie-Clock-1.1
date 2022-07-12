@@ -17,26 +17,29 @@ void SendRc5(uint8_t adr, uint8_t tog, uint8_t cmd);
 #endif /* LIBRARIES_IR_TRANSMITTERIR_H_ */
 
 
+
+
+
 //buttons with corresponding commands for 3975# pilot
 
-//Red    43
-//Green  44
-//Blue   46
+#define RED   43
+#define GREEN  44
+#define BLUE   46
 
-//Segment_1  1
-//Segment_2  2
-//Segment_3  3
-//Segment_4  4
-//Segment_5  5
-//Segment_6  6
+#define SEGMENT_1  1
+#define SEGMENT_2  2
+#define SEGMENT_3  3
+#define SEGMENT_4  4
+#define SEGMENT_5  5
+#define SEGMENT_6  6
 
-//Light+   16
-//Light-   17
+#define LIGHT_PLUS   16
+#define LIGHT_MINUS   17
 
 
-//Select all segments    34
-//Diselect all segments  15
+#define SELECT_ALL_SEGMENTS    34
+#define DISSELECT_ALL_SEGMENTS  15
 
-//Lights out  12
+#define LIGHTS_OUT  12
 
 
