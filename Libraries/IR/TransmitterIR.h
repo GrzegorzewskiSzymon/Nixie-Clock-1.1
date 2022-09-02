@@ -14,14 +14,8 @@
 
 void InitTransmitterIr();
 void SendRc5(uint8_t adr, uint8_t tog, uint8_t cmd);
-#endif /* LIBRARIES_IR_TRANSMITTERIR_H_ */
-
-
-
-
 
 //buttons with corresponding commands for 3975# pilot
-
 #define RED   43
 #define GREEN  44
 #define BLUE   46
@@ -43,3 +37,4 @@ void SendRc5(uint8_t adr, uint8_t tog, uint8_t cmd);
 #define LIGHTS_OUT  12
 
 
+#endif /* LIBRARIES_IR_TRANSMITTERIR_H_ */
