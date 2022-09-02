@@ -92,7 +92,7 @@ static void Clock_Idle()
 				buffer[0]++;
 			}
 
-			if(buffer[0] > 23) buffer[3] = 0;
+			if(buffer[0] > 23) buffer[0] = 0;
 
 			if(buffer[1] <= -1) //-1 in minutes need to be compensated by decreasing hour and setting minutes to 59
 			{
@@ -183,6 +183,8 @@ static void Clock_Sustain()
 
 		if(millis-sustainMillis >= MAX_TIME_TO_CHECH_IN - 30000)
 			LED_ON;
+		else
+			LED_OFF;
 
 
 		if(millis-sustainMillis >= MAX_TIME_TO_CHECH_IN)
