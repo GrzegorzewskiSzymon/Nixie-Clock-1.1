@@ -10,17 +10,11 @@
 
 #define DIODES_BLINK_TIME 3000 //ms
 
-#define NIXIEDIODE_0_INIT DDRB |= (1<<PB6)
-#define NIXIEDIODE_1_INIT DDRD |= (1<<PD4)
+#define NIXIEDIODES_INIT DDRD |= (1<<PD0)
 
-#define NIXIEDIODE_0_ON PORTB |= (1<<PB6)
-#define NIXIEDIODE_1_ON PORTD |= (1<<PD4)
-
-#define NIXIEDIODE_0_OFF PORTB &=~ (1<<PB6)
-#define NIXIEDIODE_1_OFF PORTD &=~ (1<<PD4)
-
-#define NIXIEDIODE_0_TOG PORTB ^= (1<<PB6)
-#define NIXIEDIODE_1_TOG PORTD ^= (1<<PD4)
+#define NIXIEDIODES_ON  PORTD |=  (1<<PD0)
+#define NIXIEDIODES_OFF PORTD &=~ (1<<PD0)
+#define NIXIEDIODES_TOG PORTD ^=  (1<<PD0)
 
 void NixieDiodesInit();
 

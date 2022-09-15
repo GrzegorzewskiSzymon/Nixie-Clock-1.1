@@ -10,10 +10,10 @@
 
 
 //LEDs
-#define LED_INIT DDRC |=  (1<<PC2)
-#define LED_ON   PORTC &=~ (1<<PC2)
-#define LED_OFF  PORTC |=  (1<<PC2)
-#define LED_TOG  PORTC ^=  (1<<PC2)
+#define LED_INIT DDRD |=  (1<<PD5)
+#define LED_ON   PORTD &=~ (1<<PD5)
+#define LED_OFF  PORTD |=  (1<<PD5)
+#define LED_TOG  PORTD ^=  (1<<PD5)
 
 void Led_Init();
 void BlinkLed();
@@ -24,13 +24,11 @@ void Timer0_Init();//start counting millis
 extern uint64_t millis;
 
 //Buttons
-#define SW_0_IS_PUSHED !(PINB & (1<<PB2))
-#define SW_1_IS_PUSHED !(PINB & (1<<PB1))
-#define SW_2_IS_PUSHED !(PIND & (1<<PD5))
+#define SW_0_IS_PUSHED !(PIND & (1<<PD7))
+#define SW_1_IS_PUSHED !(PIND & (1<<PD6))
 
-#define SW_0_PULL_UP PORTB |= (1<<PB2)
-#define SW_1_PULL_UP PORTB |= (1<<PB1)
-#define SW_2_PULL_UP PORTD |= (1<<PD5)
+#define SW_0_PULL_UP PORTD |= (1<<PD7)
+#define SW_1_PULL_UP PORTD |= (1<<PD6)
 
 
 #define DEBOUNCE_TIME 20 //ms;
@@ -62,8 +60,7 @@ typedef struct
 
 extern SWITCH Switch_0;
 extern SWITCH Switch_1;
-extern SWITCH Switch_2;
-void SwitchInit(SWITCH *switch_0, SWITCH *switch_1, SWITCH *switch_2);
+void SwitchInit(SWITCH *switch_0, SWITCH *switch_1);
 void StateMachine(SWITCH *switch_);
 
 

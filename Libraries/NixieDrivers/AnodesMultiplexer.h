@@ -9,22 +9,15 @@
 #define LIBRARIES_NIXIEDRIVERS_ANODESMULTIPLEXER_H_
 
 
-#define ANODES_INIT DDRD |= 0b11000000; DDRB |= 0b10000001
-//tens of hours
-#define NIXIE_3_ON   PORTB |=  (1<<PB0)
-#define NIXIE_3_OFF  PORTB &=~ (1<<PB0)
+#define ANODES_INIT DDRD |= 0b00000110;
 
-//units of hours
-#define NIXIE_2_ON   PORTD |=  (1<<PD7)
-#define NIXIE_2_OFF  PORTD &=~ (1<<PD7)
+//tens of hours/minutes/seconds
+#define NIXIE_TENS_ON   PORTD |=  (1<<PD1)
+#define NIXIE_TENS_OFF  PORTD &=~ (1<<PD1)
 
-//tens of minutes
-#define NIXIE_1_ON   PORTB |=  (1<<PB7)
-#define NIXIE_1_OFF  PORTB &=~ (1<<PB7)
-
-//units of minutes
-#define NIXIE_0_ON   PORTD |=  (1<<PD6)
-#define NIXIE_0_OFF  PORTD &=~ (1<<PD6)
+//units of hours/minutes/seconds
+#define NIXIE_UNITS_ON   PORTD |=  (1<<PD2)
+#define NIXIE_UNITS_OFF  PORTD &=~ (1<<PD2)
 
 void Anodes_Init();
 

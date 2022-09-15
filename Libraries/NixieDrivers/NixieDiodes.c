@@ -9,6 +9,5 @@
 
 void NixieDiodesInit()
 {
-	NIXIEDIODE_0_INIT;
-	NIXIEDIODE_1_INIT;
+	NIXIEDIODES_INIT;
 }
