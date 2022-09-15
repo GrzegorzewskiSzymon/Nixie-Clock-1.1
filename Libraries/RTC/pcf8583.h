@@ -15,4 +15,14 @@ uint8_t BCDToDec(uint8_t bcd);
 void RtcInit();
 void RtcReadData(uint8_t *seconds, uint8_t *minutes, uint8_t *hours);
 
+
+typedef enum
+{
+	ENTER_HOURS = 0,
+	ENTER_MINUTES,
+	ENTER_SECONDS
+
+}TIME_TO_ENTER;
+
+
 #endif /* LIBRARIES_RTC_PCF8583_H_ */
