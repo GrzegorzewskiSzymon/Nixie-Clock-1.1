@@ -19,84 +19,53 @@ void BCD_Init()
 
 uint64_t millis_DisplayTime = 0;
 uint64_t millis_DisplayTime_Diodes = 0;
-void DisplayTime(int8_t hours, int8_t minutes, uint16_t reduceBlinkPeriodTime)
+void DisplayTime(int8_t hours, int8_t minutes, int8_t seconds)
 {
 
-	if(millis-millis_DisplayTime_Diodes > DIODES_BLINK_TIME - reduceBlinkPeriodTime)
+	if(millis-millis_DisplayTime_Diodes > DIODES_BLINK_TIME)
 	{
-		if( (PINB&(1<<PB6))==(PIND&&(1<<PD4)) ) //if diodes are out of sync
-			NIXIEDIODE_0_TOG;
-
-		NIXIEDIODE_0_TOG;
-		NIXIEDIODE_1_TOG;
+		NIXIEDIODES_TOG;
 		millis_DisplayTime_Diodes = millis;
 	}
 
 
-	if(millis-millis_DisplayTime>20)//Its time to display units of minutes
+	if(millis-millis_DisplayTime>10)//Its time to display tens
 	{
-		NIXIE_3_OFF;NIXIE_2_OFF;NIXIE_1_OFF;NIXIE_0_OFF;
-		if(millis-millis_DisplayTime>21)//one ms later
-		{
-			PORTD &=~ 0b00001111;
-			PORTD |= minutes%10;
+		NIXIE_TENS_ON;
+		NIXIE_UNITS_OFF;
 
-			NIXIE_3_OFF;
-			NIXIE_2_OFF;
-			NIXIE_1_OFF;
-			NIXIE_0_ON;
+		//displaying  tens of hours
+		PORTB &=~ 0b00001111;
+		PORTB |= hours/10;
 
-			millis_DisplayTime = millis;//set actual time after full cicle
-		}
+		//displaying  tens of minutes
+		PORTB &=~ 0b11110000;
+		PORTB |= ((minutes/10)<<4);
+
+		//displaying  tens of minutes
+		PORTC &=~ 0b00001111;
+		PORTC |= seconds/10;
+
+		millis_DisplayTime = millis;//set actual time after full cicle
 		return;
 	}
 
-	if(millis-millis_DisplayTime>15)//Its time to display tens of minutes
+	if(millis-millis_DisplayTime>5)//Its time to display units
 	{
-		NIXIE_3_OFF;NIXIE_2_OFF;NIXIE_1_OFF;NIXIE_0_OFF;
-		if(millis-millis_DisplayTime>16)//one ms later
-		{
-			PORTD &=~ 0b00001111;
-			PORTD |= minutes/10;
+		NIXIE_TENS_OFF;
+		NIXIE_UNITS_ON;
 
-			NIXIE_3_OFF;
-			NIXIE_2_OFF;
-			NIXIE_1_ON;
-			NIXIE_0_OFF;
-		}
-		return;
+		//displaying units of hours
+		PORTB &=~ 0b00001111;
+		PORTB |= hours%10;
+
+		//displaying units of minutes
+		PORTB &=~ 0b11110000;
+		PORTB |= ((minutes%10)<<4);
+
+		//displaying units of seconds
+		PORTC &=~ 0b00001111;
+		PORTC |= seconds%10;
 	}
-
-	if(millis-millis_DisplayTime>10)//Its time to display units of hours
-	{
-		NIXIE_3_OFF;NIXIE_2_OFF;NIXIE_1_OFF;NIXIE_0_OFF;
-		if(millis-millis_DisplayTime>11)//one ms later
-		{
-			PORTD &=~ 0b00001111;
-			PORTD |= hours%10;
-
-			NIXIE_3_OFF;
-			NIXIE_2_ON;
-			NIXIE_1_OFF;
-			NIXIE_0_OFF;
-		}
-		return;
-	}
-
-	if(millis-millis_DisplayTime>5 && hours>9)//Its time to display tens of hours
-	{
-		NIXIE_3_OFF;NIXIE_2_OFF;NIXIE_1_OFF;NIXIE_0_OFF;
-		if(millis-millis_DisplayTime>6)//one ms later
-		{
-			PORTD &=~ 0b00001111;
-			PORTD |= hours/10;
-
-			NIXIE_3_ON;
-			NIXIE_2_OFF;
-			NIXIE_1_OFF;
-			NIXIE_0_OFF;
-		}
-	}
-
 }
 
