@@ -14,8 +14,6 @@
 #include "Libraries/RTC/i2c.h"
 #include "Libraries/RTC/pcf8583.h"
 #include "Libraries/NixieDrivers/NixieDiodes.h"
-#include "Libraries/IR/TransmitterIR.h"
-#include "Libraries/StateMachine/StateMachine.h"
 
 uint8_t seconds, minutes, hours;
 
@@ -26,7 +24,7 @@ int main(void)
 	Led_Init();
 	BlinkLed(); //visual confirmation of reset
 
-	SwitchInit(&Switch_0, &Switch_1, &Switch_2);//Numerate and pull up switches
+	SwitchInit(&Switch_0, &Switch_1);//Numerate and pull up switches
 
 	Anodes_Init();//Set pins for optocoupler as output
 	BCD_Init();
@@ -36,12 +34,10 @@ int main(void)
 
 	NixieDiodesInit();
 
-	InitTransmitterIr();
-
 	while(1)
 	{
-		StateMachine_Clock();
-
+		RtcReadData(&seconds, &minutes, &hours);
+		DisplayTime(hours, minutes, seconds);
 	}
 
 }
