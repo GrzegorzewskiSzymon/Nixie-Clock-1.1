@@ -173,7 +173,7 @@ void RtcInit()
 	if(buffer[0] || buffer[1] || buffer[2])
 	{
 		//adds 8 sec, to upload exact time at which the last time button was pressed
-		buffer[2] += TIME_FOR_SETTING_TIME;
+		buffer[2] += TIME_FOR_SETTING_TIME/1000;
 
 		if(buffer[2] > 59)
 		{
