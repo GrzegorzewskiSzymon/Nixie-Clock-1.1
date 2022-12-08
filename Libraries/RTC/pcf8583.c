@@ -26,7 +26,7 @@ void RtcInit()
 	int8_t buffer[4] = {0,0,0,0};
 	uint64_t millis_DisplayTime_RTCINIT = millis;
 	uint64_t millis_Switch = millis;
-	while(millis - millis_Switch <15000)
+	while(millis - millis_Switch <TIME_FOR_SETTING_TIME)
 	{
 		LED_ON;
 
@@ -172,10 +172,24 @@ void RtcInit()
 	/*********only if user tried to change time********/
 	if(buffer[0] || buffer[1] || buffer[2])
 	{
-		//adds 15 sec, to upload exact time at which the last time button was pressed
+		//adds 8 sec, to upload exact time at which the last time button was pressed
+		buffer[2] += TIME_FOR_SETTING_TIME;
 
-		int8_t bufferToSend[4];
+		if(buffer[2] > 59)
+		{
+			buffer[1]++;
+			buffer[2] = 0;
+		}
+		if(buffer[1] > 59)
+		{
+			buffer[0]++;
+			buffer[1] = 0;
+		}
+
+		if(buffer[0] > 23) buffer[0] = 0; //hours
+
 		/*************uploading new time to RTC************/
+		int8_t bufferToSend[4];
 		for(uint8_t i=0; i<4; i++)
 			bufferToSend[i] = DecToBCD(buffer[3-i]);
 

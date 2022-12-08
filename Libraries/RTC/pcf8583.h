@@ -8,6 +8,7 @@
 #ifndef LIBRARIES_RTC_PCF8583_H_
 #define LIBRARIES_RTC_PCF8583_H_
 
+#define TIME_FOR_SETTING_TIME 8000
 
 uint8_t DecToBCD(uint8_t dec);
 uint8_t BCDToDec(uint8_t bcd);
