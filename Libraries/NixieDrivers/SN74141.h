@@ -11,7 +11,10 @@
 #define BCD_INIT DDRB |= 0b11111111; DDRC |= 0b00001111
 
 #define TIME_BETWEEN_SLOW_MULTIPLEXING 15 //in minutes
-#define TIME_OF_SLOW_MULTIPLEXING 0.5 //in minutes
+#define CYCLES_OF_SLOW_MULTIPLEXING 2
+#define SPEED_OF_SLOW_MULTIPLEXING 700 //in millis
+
+#define TIME_OF_SLOW_MULTIPLEXING (30ULL*SPEED_OF_SLOW_MULTIPLEXING*CYCLES_OF_SLOW_MULTIPLEXING)
 
 void BCD_Init();
 void DisplayTime(int8_t hours, int8_t minutes, int8_t seconds);
