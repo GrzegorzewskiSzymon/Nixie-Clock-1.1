@@ -19,8 +19,21 @@ void BCD_Init()
 
 uint64_t millis_DisplayTime = 0;
 uint64_t millis_DisplayTime_Diodes = 0;
+uint64_t millis_SlowMultiplexing = 0;
 void DisplayTime(int8_t hours, int8_t minutes, int8_t seconds)
 {
+
+	uint16_t slower = 1;
+	if(millis-millis_SlowMultiplexing > (1000ULL*60ULL*TIME_BETWEEN_SLOW_MULTIPLEXING))//when it's time to "repair" balance in nixie tubes
+	{
+		slower = 1000;
+	}
+	if(millis-millis_SlowMultiplexing > ((1000ULL*60ULL*TIME_BETWEEN_SLOW_MULTIPLEXING)+(1000ULL*60ULL*TIME_OF_SLOW_MULTIPLEXING)) )
+	{
+		slower = 1;
+		millis_SlowMultiplexing = millis;
+
+	}
 
 	if(millis-millis_DisplayTime_Diodes > DIODES_BLINK_TIME)
 	{
@@ -29,11 +42,11 @@ void DisplayTime(int8_t hours, int8_t minutes, int8_t seconds)
 	}
 
 
-	if(millis-millis_DisplayTime>10)//Its time to display tens
+	if(millis-millis_DisplayTime>10*slower)//Its time to display tens
 	{
 		NIXIE_TENS_OFF;
 		NIXIE_UNITS_OFF;
-		if(millis-millis_DisplayTime>11)//shift one ms to cancel ghost numbers in tubes
+		if(millis-millis_DisplayTime>11*slower)//shift one ms to cancel ghost numbers in tubes
 		{
 			NIXIE_TENS_ON;
 
@@ -54,11 +67,11 @@ void DisplayTime(int8_t hours, int8_t minutes, int8_t seconds)
 		}
 	}
 
-	if(millis-millis_DisplayTime>5)//Its time to display units
+	if(millis-millis_DisplayTime>5*slower)//Its time to display units
 	{
 		NIXIE_TENS_OFF;
 		NIXIE_UNITS_OFF;
-		if(millis-millis_DisplayTime>6)//shift one ms to cancel ghost numbers in tubes
+		if(millis-millis_DisplayTime>6*slower)//shift one ms to cancel ghost numbers in tubes
 		{
 			NIXIE_UNITS_ON;
 
